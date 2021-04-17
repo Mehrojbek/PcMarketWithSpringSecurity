@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/team/**").hasRole("SUPER_ADMIN")
                 //FOR ALL
                 .antMatchers(HttpMethod.GET,"/api/**").hasAnyAuthority("READ","READ_ALL")
-                .antMatchers(HttpMethod.DELETE,"/api/*").hasAuthority("DELETE")
+                .antMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("DELETE")
                 .antMatchers("/api/**").hasAnyRole("SUPER_ADMIN","MODERATOR")
 
                 .anyRequest()

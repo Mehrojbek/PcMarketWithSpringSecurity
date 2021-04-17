@@ -5,7 +5,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import uz.pdp.apppcmarket.entity.Basket;
 import uz.pdp.apppcmarket.entity.Currency;
 import uz.pdp.apppcmarket.projection.CustomBasket;
+import uz.pdp.apppcmarket.projection.CustomCurrency;
 
-@RepositoryRestResource(path = "currency",excerptProjection = Currency.class)
-public interface CurrencyRepository extends JpaRepository<Basket,Integer> {
+@RepositoryRestResource(path = "currency",excerptProjection = CustomCurrency.class)
+public interface CurrencyRepository extends JpaRepository<Currency,Integer> {
 }

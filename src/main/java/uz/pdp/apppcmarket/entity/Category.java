@@ -21,7 +21,7 @@ public class Category {
     @Column(nullable = false,unique = true)
     private String name;
 
-    @OneToOne
+    @ManyToOne
     private Category category;
 
     private boolean active=true;

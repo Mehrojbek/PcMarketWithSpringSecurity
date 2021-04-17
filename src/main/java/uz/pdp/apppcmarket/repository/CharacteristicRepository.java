@@ -5,7 +5,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import uz.pdp.apppcmarket.entity.Basket;
 import uz.pdp.apppcmarket.entity.Characteristic;
 import uz.pdp.apppcmarket.projection.CustomBasket;
+import uz.pdp.apppcmarket.projection.CustomCharacteristic;
 
-@RepositoryRestResource(path = "characteristic",excerptProjection = Characteristic.class)
-public interface CharacteristicRepository extends JpaRepository<Basket,Integer> {
+@RepositoryRestResource(path = "characteristic",excerptProjection = CustomCharacteristic.class)
+public interface CharacteristicRepository extends JpaRepository<Characteristic,Integer> {
 }

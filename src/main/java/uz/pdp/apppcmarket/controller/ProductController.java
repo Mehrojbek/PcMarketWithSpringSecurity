@@ -9,17 +9,17 @@ import uz.pdp.apppcmarket.service.ProductService;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/product/properties")
-public class ProductController {
-
-    @Autowired
-    ProductService productService;
-
-    @PostMapping
-    public ResponseEntity<?> getAllByProperties(@RequestBody ProductDto productDto){
-        List<Product> byProperties = productService.getAllByProperties(productDto);
-        return ResponseEntity.status(!byProperties.isEmpty()?200:404).body(byProperties);
-    }
-
-}
+//@RestController
+//@RequestMapping("/api/product/properties")
+//public class ProductController {
+//
+//    @Autowired
+//    ProductService productService;
+//
+//    @PostMapping
+//    public ResponseEntity<?> getAllByProperties(@RequestBody ProductDto productDto){
+//        List<Product> byProperties = productService.getAllByProperties(productDto);
+//        return ResponseEntity.status(!byProperties.isEmpty()?200:404).body(byProperties);
+//    }
+//
+//}
