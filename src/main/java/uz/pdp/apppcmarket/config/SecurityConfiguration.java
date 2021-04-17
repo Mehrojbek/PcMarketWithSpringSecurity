@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("SUPER_ADMIN").authorities("READ","READ_ALL","DELETE","ADD","EDIT")
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("SUPER_ADMIN").authorities("READ","READ_ALL","DELETE","ADD","EDIT","TEAM")
                 .and()
                 .withUser("moderator").password(passwordEncoder().encode("moderator")).roles("MODERATOR").authorities("READ","READ_ALL","ADD","EDIT")
                 .and()
@@ -37,11 +37,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/api/product/**").permitAll()
                 //FOR ORDER     ORDERGA OPERATOR VA MODERATOR HAM ISHLOV BERA OLISHI UCHUN
                 .antMatchers("/api/order/**").hasAuthority("READ")
+                //FOR TEAM
+                .antMatchers("/api/team/**").hasAuthority("TEAM")
                 //FOR ALL
                 .antMatchers(HttpMethod.GET,"/api/**").hasAnyAuthority("READ","READ_ALL")
                 .antMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("DELETE")
                 .antMatchers(HttpMethod.PUT,"/api/**").hasAuthority("EDIT")
-                .antMatchers(HttpMethod.POST,"/api/**").hasAuthority("EDIT")
+                .antMatchers(HttpMethod.POST,"/api/**").hasAuthority("ADD")
 
                 .anyRequest()
                 .authenticated()
