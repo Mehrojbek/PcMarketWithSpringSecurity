@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -34,18 +33,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //SAYTGA TASHRIF BUYURGAN ANONIM MIJOZ UCHUN
+                //FOR ANONIM CUSTOMER
                 .antMatchers(HttpMethod.GET,"/api/product/**").permitAll()
-                //FOR ORDER
-                .antMatchers("/api/order/**").hasAnyRole("SUPER_ADMIN","MODERATOR","OPERATOR")
-                //FOR PARTNER
-                .antMatchers("/api/partner/**").hasAnyRole("SUPER_ADMIN","MODERATOR")
-                //FOR TEAM
-                .antMatchers("/api/team/**").hasRole("SUPER_ADMIN")
+                //FOR ORDER     ORDERGA OPERATOR VA MODERATOR HAM ISHLOV BERA OLISHI UCHUN
+                .antMatchers("/api/order/**").hasAuthority("READ")
                 //FOR ALL
                 .antMatchers(HttpMethod.GET,"/api/**").hasAnyAuthority("READ","READ_ALL")
                 .antMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("DELETE")
-                .antMatchers("/api/**").hasAnyRole("SUPER_ADMIN","MODERATOR")
+                .antMatchers(HttpMethod.PUT,"/api/**").hasAuthority("EDIT")
+                .antMatchers(HttpMethod.POST,"/api/**").hasAuthority("EDIT")
 
                 .anyRequest()
                 .authenticated()
@@ -59,3 +55,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+
+
+//SAYTGA TASHRIF BUYURGAN ANONIM MIJOZ UCHUN
+//                .antMatchers(HttpMethod.GET,"/api/product/**").permitAll()
+//FOR ORDER
+//                .antMatchers("/api/order/**").hasAnyRole("SUPER_ADMIN","MODERATOR","OPERATOR")
+//FOR PARTNER
+//                .antMatchers("/api/partner/**").hasAnyRole("SUPER_ADMIN","MODERATOR")
+//FOR TEAM
+//                .antMatchers("/api/team/**").hasRole("SUPER_ADMIN")
+//FOR ALL
+
+//                .antMatchers(HttpMethod.GET,"/api/**").hasAnyAuthority("READ","READ_ALL")
+//                .antMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("DELETE")
+//                .antMatchers(HttpMethod.PUT,"/api/**").hasAnyRole("SUPER_ADMIN","MODERATOR")
